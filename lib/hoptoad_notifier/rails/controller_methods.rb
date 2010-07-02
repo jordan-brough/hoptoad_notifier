@@ -23,7 +23,12 @@ module HoptoadNotifier
           :controller       => params[:controller],
           :action           => params[:action],
           :url              => hoptoad_request_url,
-          :cgi_data         => hoptoad_filter_if_filtering(request.env) }
+          :cgi_data         => hoptoad_filter_if_filtering(request.env).merge(hoptoad_extra_cgi_data) }
+      end
+
+      # override in your controllers to provide extra hoptoad cgi data
+      def hoptoad_extra_cgi_data
+        {}
       end
 
       def hoptoad_filter_if_filtering(hash)
